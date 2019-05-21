@@ -8,3 +8,11 @@ before_script:
 
 script:
   - make
+
+deploy:
+  provider: releases
+  api_key: $TOKEN
+  file: "CaseChanger"
+  skip_cleanup: true
+  on:
+      tags: true
