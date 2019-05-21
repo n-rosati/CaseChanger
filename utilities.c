@@ -20,3 +20,8 @@ char * getField(char * target, FILE * input, int * length){
 
     return target;
 }
+
+void clearLines(int numberOfLinesToClear){
+    for (int i = 0; i < numberOfLinesToClear; ++i)
+        fprintf(stdout, "\033[A\33[2K\r");
+}

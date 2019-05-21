@@ -4,3 +4,4 @@
 #endif //CASE_CHANGER_FUNCTIONS_H
 
 char * getField(char *, FILE *, int *);
+void clearLines(int);
