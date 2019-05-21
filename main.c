@@ -35,7 +35,7 @@ int main(){
         free(userInput);
     }while(1);
 
-    switch (menuOption){
+    switch(menuOption){
         case 1:
             userInput = getField(malloc(sizeof(char)), stdin, &userInputLength);
             for (int i = 0; i < userInputLength; ++i) {
