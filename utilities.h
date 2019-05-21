@@ -5,3 +5,4 @@
 
 char * getField(char *, FILE *, int *);
 void clearLines(int);
+void switchCase(char, int);

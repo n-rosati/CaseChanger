@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <ctype.h>
 #include <malloc.h>
 #include "utilities.h"
 
@@ -25,4 +26,14 @@ void clearLines(int numberOfLinesToClear){
     for (int i = 0; i < numberOfLinesToClear; ++i)
         //Clears the line the cursor is on and then moves the cursor up a line
         fprintf(stdout, "\033[A\33[2K\r");
+}
+
+void switchCase(char character, int index){
+    //Every other character needs to be upper case, and every other character + 1 needs to be lower case
+    if(index % 2) {
+        printf("%c", toupper(character));
+    }
+    else{
+        printf("%c", tolower(character));
+    }
 }
