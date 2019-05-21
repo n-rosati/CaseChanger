@@ -19,7 +19,7 @@ before_deploy:
 deploy:
   provider: releases
   api_key: $TOKEN
-  file: "CaseChanger"
+  file: "Case_Changer"
   skip_cleanup: true
   on:
       tags: false
