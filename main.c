@@ -6,6 +6,7 @@ int main(){
     char * userInput;
     int userInputLength;
     int firstRun = 1;
+    int nonAlphaCounter = 0;
 
     //Get user input
     do {
@@ -28,5 +29,17 @@ int main(){
                 printf("Invalid input.\n");
             }
         }
+        free(userInput);
     }while(1);
+
+    switch ((int)userInput[0]){
+        case 49:
+            userInput = getField(malloc(sizeof(char)), stdin, &userInputLength);
+            for (int i = 0; i < userInputLength; ++i) {
+                if(!(((userInput[i] >= 65) && (userInput[i] <=90)) || ((userInput[i] >= 97) && (userInput[i] <= 122)))){ ++nonAlphaCounter; }
+                switchCase(userInput[i], i - nonAlphaCounter);
+            }
+            printf("\n");
+            break;
+    }
 }
