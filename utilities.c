@@ -23,5 +23,6 @@ char * getField(char * target, FILE * input, int * length){
 
 void clearLines(int numberOfLinesToClear){
     for (int i = 0; i < numberOfLinesToClear; ++i)
+        //Clears the line the cursor is on and then moves the cursor up a line
         fprintf(stdout, "\033[A\33[2K\r");
 }
