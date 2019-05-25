@@ -38,12 +38,28 @@ int main(){
     switch(sourceOption){
         case 1:
             userInput = getField(malloc(sizeof(char)), stdin, &userInputLength);
+            int nonAlphaCounter = 0;
             for (int i = 0; i < userInputLength; ++i) {
                 if(!(((userInput[i] >= 65) && (userInput[i] <=90)) || ((userInput[i] >= 97) && (userInput[i] <= 122)))){ ++nonAlphaCounter; }
                 switchCase(userInput[i], i - nonAlphaCounter);
             }
             printf("\n");
             free(userInput);
+            break;
+
+        case 2:
+            printf("Enter the path to the file:\n");
+            int pathLength;
+            char * filePath = getField(malloc(sizeof(char)), stdin, &pathLength);
+            FILE * file = fopen(filePath, "r");
+            char * newFilePath = calloc(pathLength + 9, sizeof(char));
+            strncpy(newFilePath, filePath, pathLength - 4);
+            strcat(newFilePath, "-altered.txt\0");
+            printf("%s\n", newFilePath);
+
+
+            free(filePath);
+            free(newFilePath);
             break;
     }
 }
