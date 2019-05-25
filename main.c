@@ -1,41 +1,41 @@
 #include <stdio.h>
 #include <malloc.h>
+#include <string.h>
 #include "utilities.h"
 
 int main(){
     char * userInput;
-    int menuOption;
+    int sourceOption;
     int userInputLength;
-    int firstRun = 1;
-    int nonAlphaCounter = 0;
 
     //Get user input
-    do {
+    int firstRun = 1;
+    do{
         printf("1. Read from console\n2. Read from file\n");
         userInput = getField(malloc(sizeof(char)), stdin, &userInputLength);
         if((userInputLength == 1) && ((int)userInput[0] == 49 || (int)userInput[0] == 50)){
-            if(firstRun){ clearLines(3); }
-            else{ clearLines(4); }
-            menuOption = (int)userInput[0] - 48;
+            if(firstRun){ clearLine(3); }
+            else{ clearLine(4); }
+            sourceOption = (int)userInput[0] - 48;
             free(userInput);
             break;
         }
         else{
             //This re-prompts the user for input if what they entered is invalid, without spamming the console
             if(firstRun){
-                clearLines(3);
+                clearLine(3);
                 printf("Invalid input.\n");
                 firstRun = 0;
             }
             else{
-                clearLines(4);
+                clearLine(4);
                 printf("Invalid input.\n");
             }
         }
         free(userInput);
     }while(1);
 
-    switch(menuOption){
+    switch(sourceOption){
         case 1:
             userInput = getField(malloc(sizeof(char)), stdin, &userInputLength);
             for (int i = 0; i < userInputLength; ++i) {
