@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8.7)
+cmake_minimum_required(VERSION 3.7.10)
 project(Case_Changer C)
 
 set(CMAKE_C_STANDARD 11)
