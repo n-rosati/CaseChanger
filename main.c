@@ -7,11 +7,10 @@ int main(){
     char * userInput;
     int sourceOption;
     int userInputLength;
-    int firstRun = 1;
-    int nonAlphaCounter = 0;
 
     //Get user input
-    do {
+    int firstRun = 1;
+    do{
         printf("1. Read from console\n2. Read from file\n");
         userInput = getField(malloc(sizeof(char)), stdin, &userInputLength);
         if((userInputLength == 1) && ((int)userInput[0] == 49 || (int)userInput[0] == 50)){
