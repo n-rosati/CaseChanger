@@ -17,9 +17,7 @@ int main(){
         userInput = getField(malloc(sizeof(char)), stdin, &userInputLength);
         if((userInputLength == 1) && ((int)userInput[0] == 49 || (int)userInput[0] == 50)){
             if(firstRun){ clearLine(4); }
-            else{
-                clearLine(5);
-            }
+            else{ clearLine(5); }
             sourceOption = (int)userInput[0] - 48;
             free(userInput);
             break;
