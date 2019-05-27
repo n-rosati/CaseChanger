@@ -39,7 +39,7 @@ int main(){
         free(userInput);
     }while(1);
 
-    //Output section
+    //Output location selection
     do{
         if(userInput != NULL){ free(userInput); }
         printf("Select destination location:\n");
