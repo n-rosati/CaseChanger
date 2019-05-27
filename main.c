@@ -35,8 +35,7 @@ int main(){
         free(userInput);
     }while(1);
 
-    int nonAlphaCounter = 0;
-    switch(sourceOption){
+    switch(sourceOption){ // NOLINT(hicpp-multiway-paths-covered)
         case 1:
             //Read from console input, adjust casing, write to console output
             userInput = getField(malloc(sizeof(char)), stdin, &userInputLength);

@@ -39,10 +39,6 @@ void processLine(int lineLength, const char * line, FILE * outPutStream){
 
 void switchCase(char character, int index, FILE * outputStream){
     //Every other character needs to be upper case, and every other character + 1 needs to be lower case
-    if(index % 2) {
-        fprintf(outputStream, "%c", toupper(character));
-    }
-    else{
-        fprintf(outputStream, "%c", tolower(character));
-    }
+    if(index % 2) { fprintf(outputStream, "%c", toupper(character)); }
+    else{ fprintf(outputStream, "%c", tolower(character)); }
 }
