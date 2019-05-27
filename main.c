@@ -51,7 +51,8 @@ int main(){
             printf("Enter the path to the file:\n");
             int pathLength;
             char * filePath = getField(malloc(sizeof(char)), stdin, &pathLength);
-            FILE * file = fopen(filePath, "r");
+            clearLine(2);
+
             char * newFilePath = calloc(pathLength + 9, sizeof(char));
             strncpy(newFilePath, filePath, pathLength - 4);
             strcat(newFilePath, "-altered.txt\0");
