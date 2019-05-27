@@ -84,4 +84,6 @@ int main(){
             free(newFilePath);
             break;
     }
+
+    return 0;
 }
