@@ -21,7 +21,7 @@ int main(){
             break;
         }
         else{
-            //This re-prompts the user for input if what they entered is invalid, without spamming the console
+            //This re-prompts the user for input if what they entered is invalid, without spamming the console history
             if(firstRun){
                 clearLine(3);
                 printf("Invalid input.\n");
@@ -38,6 +38,7 @@ int main(){
     int nonAlphaCounter = 0;
     switch(sourceOption){
         case 1:
+            //Read from console input, adjust casing, write to console output
             userInput = getField(malloc(sizeof(char)), stdin, &userInputLength);
             for (int i = 0; i < userInputLength; ++i) {
                 if(!(((userInput[i] >= 65) && (userInput[i] <=90)) || ((userInput[i] >= 97) && (userInput[i] <= 122)))){ ++nonAlphaCounter; }
@@ -49,6 +50,7 @@ int main(){
 
         case 2:
             printf("Enter the path to the file:\n");
+            //Get file path and create a new file path with "-altered" appended to it
             int pathLength;
             char * filePath = getField(malloc(sizeof(char)), stdin, &pathLength);
             clearLine(2);
