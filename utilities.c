@@ -32,6 +32,7 @@ void processLine(int lineLength, const char * line, FILE * outPutStream){
     int nonAlphaCounter = 0;
     for (int i = 0; i < lineLength; ++i) {
         if (!(((line[i] >= 65) && (line[i] <= 90)) || ((line[i] >= 97) && (line[i] <= 122)))) { ++nonAlphaCounter; }
+        if(line[i] == '\0') fprintf(outPutStream, "\n");
         switchCase(line[i], i - nonAlphaCounter, outPutStream);
     }
     fprintf(outPutStream, "\n");
