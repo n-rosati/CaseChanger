@@ -49,19 +49,19 @@ int main(){
     destinationLocation = strtol(userInput, NULL, 10);
 
     switch(sourceLocation){
-        //Console input
         case 1: {
+            //Input from console
             switch (destinationLocation) {
-                //Console output
                 case 1: {
+                    //Console output
                     userInput = getField(malloc(sizeof(char)), stdin, &userInputLength);
                     clearLine(1);
                     processLine(userInputLength, userInput, stdout);
                     free(userInput);
                     break;
                 }
-                //File output
                 case 2: {
+                    //File output
                     //Get file path and create a new file path with "-altered" appended to it
                     printf("Enter the path to the file:\n");
                     int pathLength;
@@ -83,8 +83,8 @@ int main(){
             }
             break;
         }
-        //File input
         case 2: {
+            //Input from file
             //Open the source file
             printf("Enter the path to the file:\n");
             int pathLength;
@@ -96,8 +96,8 @@ int main(){
                 return -1;
             }
             switch(destinationLocation){
-                //Console output
                 case 1: {
+                    //Console output
                     //Read the old file, adjust casing, print to console
                     int lineLength;
                     do {
@@ -107,8 +107,8 @@ int main(){
                     } while (!feof(file));
                     break;
                 }
-                //File output
                 case 2:{
+                    //File output
                     //TODO
                     break;
                 }
