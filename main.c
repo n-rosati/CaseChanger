@@ -78,6 +78,8 @@ int main(){
                 free(currentLine);
             }while(!feof(file));
 
+            fclose(file);
+            fclose(newFile);
             free(filePath);
             free(newFilePath);
             break;
