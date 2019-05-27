@@ -7,10 +7,11 @@
 
 int main(){
     char * userInput;
-    int sourceOption;
+    int sourceLocation;
+    int destinationLocation;
     int userInputLength;
 
-    //Get user input
+    //Input location selection
     int firstRun = 1;
     do{
         printf("Select source location:\n");
@@ -19,7 +20,7 @@ int main(){
         if(validateMenuOptions(1, 2, userInput)){
             if(firstRun){ clearLine(4); }
             else{ clearLine(5); }
-            sourceOption = strtol(userInput);
+            sourceLocation = strtol(userInput, NULL, 10);
             free(userInput);
             break;
         }
@@ -38,57 +39,84 @@ int main(){
         free(userInput);
     }while(1);
 
-    switch(sourceOption){ // NOLINT(hicpp-multiway-paths-covered)
-        case 1:
-            //Read from console input, adjust casing, write to console output
-            userInput = getField(malloc(sizeof(char)), stdin, &userInputLength);
-            processLine(userInputLength, userInput, stdout);
-            free(userInput);
+    //Output section
+    do{
+        if(userInput != NULL){ free(userInput); }
+        printf("Select destination location:\n");
+        printf("1. Console\n2. New File\n");
+        userInput = getField(malloc(sizeof(char)), stdin, NULL);
+    }while(!validateMenuOptions(1, 2, userInput));
+    destinationLocation = strtol(userInput, NULL, 10);
+
+    switch(sourceLocation){
+        //Console input
+        case 1: {
+            switch (destinationLocation) {
+                //Console output
+                case 1: {
+                    userInput = getField(malloc(sizeof(char)), stdin, &userInputLength);
+                    clearLine(1);
+                    processLine(userInputLength, userInput, stdout);
+                    free(userInput);
+                    break;
+                }
+                //File output
+                case 2: {
+                    //Get file path and create a new file path with "-altered" appended to it
+                    printf("Enter the path to the file:\n");
+                    int pathLength;
+                    char *filePath = getField(malloc(sizeof(char)), stdin, &pathLength);
+                    clearLine(2);
+                    char *newFilePath = calloc(pathLength + 9, sizeof(char));
+                    strncpy(newFilePath, filePath, pathLength - 4);
+                    strcat(newFilePath, "-altered.txt\0");
+
+                    //Open the destination file
+                    FILE *newFile = fopen(newFilePath, "w");
+                    if (newFile == NULL) {
+                        printf("The following error occurred opening the destination file: %s", strerror(errno));
+                        return -2;
+                    }
+
+                    break;
+                }
+            }
             break;
-
-        case 2:
+        }
+        //File input
+        case 2: {
+            //Open the source file
             printf("Enter the path to the file:\n");
-            //Get file path and create a new file path with "-altered" appended to it
             int pathLength;
-            char * filePath = getField(malloc(sizeof(char)), stdin, &pathLength);
-            clearLine(2);
+            char *filePath = getField(malloc(sizeof(char)), stdin, &pathLength);
 
-            printf("Where do you want the processed text to be outputted to?\n");
-            printf("1. Console\n2. New File");
-
-
-            char * newFilePath = calloc(pathLength + 9, sizeof(char));
-            strncpy(newFilePath, filePath, pathLength - 4);
-            strcat(newFilePath, "-altered.txt\0");
-
-            //Open the new files
-            FILE * file = fopen(filePath, "r");
-            if(file == NULL){
-                fprintf(stdout, "The following error occurred opening the source file: %s", strerror(errno));
+            FILE *file = fopen(filePath, "r");
+            if (file == NULL) {
+                printf("The following error occurred opening the source file: %s", strerror(errno));
                 return -1;
             }
-            FILE * newFile = fopen(newFilePath, "w");
-            if(newFile == NULL){
-                fprintf(stdout, "The following error occurred opening the destination file: %s", strerror(errno));
-                fclose(file);
-                return -2;
+            switch(destinationLocation){
+                //Console output
+                case 1: {
+                    //Read the old file, adjust casing, print to console
+                    int lineLength;
+                    do {
+                        char *currentLine = getField(malloc(sizeof(char)), file, &lineLength);
+                        processLine(lineLength, currentLine, stdout);
+                        free(currentLine);
+                    } while (!feof(file));
+                    break;
+                }
+                //File output
+                case 2:{
+                    //TODO
+                    break;
+                }
             }
-
-            //Read the old file, adjust casing, print to console
-            //TODO: Write to user specified destination
-            int lineLength;
-            do{
-                char * currentLine = getField(malloc(sizeof(char)), file, &lineLength);
-                processLine(lineLength, currentLine, newFile);
-                free(currentLine);
-            }while(!feof(file));
-
             fclose(file);
-            fclose(newFile);
             free(filePath);
-            free(newFilePath);
             break;
+        }
     }
-
     return 0;
 }
