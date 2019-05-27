@@ -58,8 +58,27 @@ int main(){
             char * newFilePath = calloc(pathLength + 9, sizeof(char));
             strncpy(newFilePath, filePath, pathLength - 4);
             strcat(newFilePath, "-altered.txt\0");
-            printf("%s\n", newFilePath);
 
+            //Open the new files
+            FILE * file = fopen(filePath, "r");
+            FILE * newFile = fopen(newFilePath, "w");
+
+            //Read the old file, adjust casing, print to console
+            //TODO: Write to user specified destination
+            int lineLength;
+            do{
+                char * currentLine = getField(malloc(sizeof(char)), file, &lineLength);
+
+                if(strlen(currentLine) == 0){ printf("\n"); continue; }
+
+                for (int i = 0; i < lineLength; ++i) {
+                    if(!(((currentLine[i] >= 65) && (currentLine[i] <=90)) || ((currentLine[i] >= 97) && (currentLine[i] <= 122)))){ ++nonAlphaCounter; }
+                    switchCase(currentLine[i], i - nonAlphaCounter);
+                }
+
+                printf("\n");
+                free(currentLine);
+            }while(!feof(file));
 
             free(filePath);
             free(newFilePath);
