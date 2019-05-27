@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <malloc.h>
+#include <stdlib.h>
 #include "utilities.h"
 
 char * getField(char * target, FILE * input, int * length){
@@ -42,4 +43,9 @@ void switchCase(char character, int index, FILE * outputStream){
     //Every other character needs to be upper case, and every other character + 1 needs to be lower case
     if(index % 2) { fprintf(outputStream, "%c", toupper(character)); }
     else{ fprintf(outputStream, "%c", tolower(character)); }
+}
+
+int validateMenuOptions(int rangeStart, int rangeEnd, const char * input){
+    if(strtol(input, NULL, 10) >= rangeStart && strtol(input, NULL, 10) <= rangeEnd){ return 1; }
+    else{ return 0; }
 }

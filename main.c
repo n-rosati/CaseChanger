@@ -2,6 +2,7 @@
 #include <malloc.h>
 #include <string.h>
 #include <errno.h>
+#include <stdlib.h>
 #include "utilities.h"
 
 int main(){
@@ -15,10 +16,10 @@ int main(){
         printf("Select source location:\n");
         printf("1. Read from console\n2. Read from file\n");
         userInput = getField(malloc(sizeof(char)), stdin, &userInputLength);
-        if((userInputLength == 1) && ((int)userInput[0] == 49 || (int)userInput[0] == 50)){
+        if(validateMenuOptions(1, 2, userInput)){
             if(firstRun){ clearLine(4); }
             else{ clearLine(5); }
-            sourceOption = (int)userInput[0] - 48;
+            sourceOption = strtol(userInput);
             free(userInput);
             break;
         }
