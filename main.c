@@ -73,8 +73,7 @@ int main(){
             int lineLength;
             do{
                 char * currentLine = getField(malloc(sizeof(char)), file, &lineLength);
-                if(strlen(currentLine) == 0){ printf("\n"); continue; }
-                processLine(lineLength, currentLine, stdout);
+                processLine(lineLength, currentLine, newFile);
                 free(currentLine);
             }while(!feof(file));
 
