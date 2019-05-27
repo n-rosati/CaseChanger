@@ -11,7 +11,7 @@ char * getField(char * target, FILE * input, int * length){
         target[i] = (char)fgetc(input);
         i++;
         target = realloc(target, sizeof(char) * (i + 1));
-    }while(!(target[i - 1] == '\n' || target[i - 1] == '\0'));
+    }while(!((int)target[i - 1] == 13 || (int)target[i - 1] == 10 || (int)target[i - 1] == -1));
 
     //Properly terminate the string
     target[i - 1] = '\0';
