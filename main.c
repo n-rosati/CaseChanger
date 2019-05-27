@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <malloc.h>
 #include <string.h>
+#include <errno.h>
 #include "utilities.h"
 
 int main(){
@@ -56,7 +57,16 @@ int main(){
 
             //Open the new files
             FILE * file = fopen(filePath, "r");
+            if(file == NULL){
+                fprintf(stdout, "The following error occurred opening the source file: %s", strerror(errno));
+                return -1;
+            }
             FILE * newFile = fopen(newFilePath, "w");
+            if(newFile == NULL){
+                fprintf(stdout, "The following error occurred opening the destination file: %s", strerror(errno));
+                fclose(file);
+                return -2;
+            }
 
             //Read the old file, adjust casing, print to console
             //TODO: Write to user specified destination
