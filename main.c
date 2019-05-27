@@ -35,10 +35,10 @@ int main(){
         free(userInput);
     }while(1);
 
+    int nonAlphaCounter = 0;
     switch(sourceOption){
         case 1:
             userInput = getField(malloc(sizeof(char)), stdin, &userInputLength);
-            int nonAlphaCounter = 0;
             for (int i = 0; i < userInputLength; ++i) {
                 if(!(((userInput[i] >= 65) && (userInput[i] <=90)) || ((userInput[i] >= 97) && (userInput[i] <= 122)))){ ++nonAlphaCounter; }
                 switchCase(userInput[i], i - nonAlphaCounter);
