@@ -12,11 +12,14 @@ int main(){
     //Get user input
     int firstRun = 1;
     do{
+        printf("Select source location:\n");
         printf("1. Read from console\n2. Read from file\n");
         userInput = getField(malloc(sizeof(char)), stdin, &userInputLength);
         if((userInputLength == 1) && ((int)userInput[0] == 49 || (int)userInput[0] == 50)){
-            if(firstRun){ clearLine(3); }
-            else{ clearLine(4); }
+            if(firstRun){ clearLine(4); }
+            else{
+                clearLine(5);
+            }
             sourceOption = (int)userInput[0] - 48;
             free(userInput);
             break;
@@ -24,12 +27,12 @@ int main(){
         else{
             //This re-prompts the user for input if what they entered is invalid, without spamming the console history
             if(firstRun){
-                clearLine(3);
+                clearLine(4);
                 printf("Invalid input.\n");
                 firstRun = 0;
             }
             else{
-                clearLine(4);
+                clearLine(5);
                 printf("Invalid input.\n");
             }
         }
@@ -50,6 +53,10 @@ int main(){
             int pathLength;
             char * filePath = getField(malloc(sizeof(char)), stdin, &pathLength);
             clearLine(2);
+
+            printf("Where do you want the processed text to be outputted to?\n");
+            printf("1. Console\n2. New File");
+
 
             char * newFilePath = calloc(pathLength + 9, sizeof(char));
             strncpy(newFilePath, filePath, pathLength - 4);
