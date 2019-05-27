@@ -40,11 +40,7 @@ int main(){
         case 1:
             //Read from console input, adjust casing, write to console output
             userInput = getField(malloc(sizeof(char)), stdin, &userInputLength);
-            for (int i = 0; i < userInputLength; ++i) {
-                if(!(((userInput[i] >= 65) && (userInput[i] <=90)) || ((userInput[i] >= 97) && (userInput[i] <= 122)))){ ++nonAlphaCounter; }
-                switchCase(userInput[i], i - nonAlphaCounter);
-            }
-            printf("\n");
+            processLine(userInputLength, userInput);
             free(userInput);
             break;
 
@@ -68,15 +64,8 @@ int main(){
             int lineLength;
             do{
                 char * currentLine = getField(malloc(sizeof(char)), file, &lineLength);
-
                 if(strlen(currentLine) == 0){ printf("\n"); continue; }
-
-                for (int i = 0; i < lineLength; ++i) {
-                    if(!(((currentLine[i] >= 65) && (currentLine[i] <=90)) || ((currentLine[i] >= 97) && (currentLine[i] <= 122)))){ ++nonAlphaCounter; }
-                    switchCase(currentLine[i], i - nonAlphaCounter);
-                }
-
-                printf("\n");
+                processLine(lineLength, currentLine);
                 free(currentLine);
             }while(!feof(file));
 
