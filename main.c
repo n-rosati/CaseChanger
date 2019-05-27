@@ -40,7 +40,7 @@ int main(){
         case 1:
             //Read from console input, adjust casing, write to console output
             userInput = getField(malloc(sizeof(char)), stdin, &userInputLength);
-            processLine(userInputLength, userInput);
+            processLine(userInputLength, userInput, stdout);
             free(userInput);
             break;
 
@@ -65,7 +65,7 @@ int main(){
             do{
                 char * currentLine = getField(malloc(sizeof(char)), file, &lineLength);
                 if(strlen(currentLine) == 0){ printf("\n"); continue; }
-                processLine(lineLength, currentLine);
+                processLine(lineLength, currentLine, stdout);
                 free(currentLine);
             }while(!feof(file));
 

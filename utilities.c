@@ -28,21 +28,21 @@ void clearLine(int numberOfLinesToClear){
         fprintf(stdout, "\033[A\33[2K\r");
 }
 
-void processLine(int lineLength, const char * line){
+void processLine(int lineLength, const char * line, FILE * outPutStream){
     int nonAlphaCounter = 0;
     for (int i = 0; i < lineLength; ++i) {
         if (!(((line[i] >= 65) && (line[i] <= 90)) || ((line[i] >= 97) && (line[i] <= 122)))) { ++nonAlphaCounter; }
-        switchCase(line[i], i - nonAlphaCounter);
+        switchCase(line[i], i - nonAlphaCounter, outPutStream);
     }
     printf("\n");
 }
 
-void switchCase(char character, int index){
+void switchCase(char character, int index, FILE * outputStream){
     //Every other character needs to be upper case, and every other character + 1 needs to be lower case
     if(index % 2) {
-        printf("%c", toupper(character));
+        fprintf(outputStream, "%c", toupper(character));
     }
     else{
-        printf("%c", tolower(character));
+        fprintf(outputStream, "%c", tolower(character));
     }
 }
