@@ -5,5 +5,6 @@
 
 char * getField(char *, FILE *, int *);
 void clearLine(int);
-void processLine(int, const char *);
-void switchCase(char, int);
+void processLine(int, const char *, FILE *);
+void switchCase(char, int, FILE *);
+int validateMenuOptions(int, int, const char *);
