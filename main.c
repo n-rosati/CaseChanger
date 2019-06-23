@@ -45,12 +45,13 @@ int main(){
         printf("Select destination location:\n");
         printf("1. Console\n2. New File\n");
         userInput = getField(malloc(sizeof(char)), stdin, NULL);
+        clearLine(4);
     }while(!validateMenuOptions(1, 2, userInput));
     destinationLocation = strtol(userInput, NULL, 10);
 
     switch(sourceLocation){
         case 1: {
-            //Input from console
+            //Console input
             switch (destinationLocation) {
                 case 1: {
                     //Console output
@@ -62,29 +63,28 @@ int main(){
                 }
                 case 2: {
                     //File output
-                    //Get file path and create a new file path with "-altered" appended to it
-                    printf("Enter the path to the file:\n");
+                    //Get file path and create a new file using that path
+                    printf("Enter the path to the target file:\n");
                     int pathLength;
-                    char *filePath = getField(malloc(sizeof(char)), stdin, &pathLength);
+                    char * filePath = getField(malloc(sizeof(char)), stdin, &pathLength);
                     clearLine(2);
-                    char *newFilePath = calloc(pathLength + 9, sizeof(char));
-                    strncpy(newFilePath, filePath, pathLength - 4);
-                    strcat(newFilePath, "-altered.txt\0");
 
-                    //Open the destination file
-                    FILE *newFile = fopen(newFilePath, "w");
-                    if (newFile == NULL) {
-                        printf("The following error occurred opening the destination file: %s", strerror(errno));
-                        return -2;
-                    }
+                    userInput = getField(malloc(sizeof(char)), stdin, &userInputLength);
 
+                    //Open, write to, and close the new file
+                    FILE * newFile = fopen(filePath, "w");
+                    if (newFile == NULL) { printf("The following error occurred opening the destination file: %s", strerror(errno)); return -2; }
+                    processLine(userInputLength, userInput, newFile);
+                    fclose(newFile);
+
+                    free(userInput);
                     break;
                 }
             }
             break;
         }
         case 2: {
-            //Input from file
+            //File input
             //Open the source file
             printf("Enter the path to the file:\n");
             int pathLength;
@@ -109,7 +109,7 @@ int main(){
                 }
                 case 2:{
                     //File output
-                    //TODO
+                    //TODO: Finish implementing file output
                     break;
                 }
             }
